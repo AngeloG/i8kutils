@@ -1,6 +1,41 @@
 I8KUTILS FOR LINUX - VERSION 1.42
 =================================
 
+INSPIRON 7200 SE FORK
+=====================
+
+This fork is only for Inspiron 7200 SE laptops. Basically, don't use i8kmon.
+
+The module has been modified to always return -1 for I8K_FAN_RIGHT, because
+for some reason this always results in a 1500ms lag. So now, /proc/i8k will
+not print anything for the right fan besides -1.
+
+This driver is only useful for silencing your fan, not for automated
+monitoring, since this is already done by the BIOS itself, which does not
+cause a 1500ms freeze. So you can silence your fans if you want using:
+
+  i8kctl fan 0 0
+
+Note, this does make the system freeze for 1500ms, because setting the fan
+speed also freezes the system for yet unknown reason.
+
+Then, when the system gets too hot, the BIOS will /automatically/ turn the
+fan back on when it needs to.
+
+I personally also make an alias 'fan' to easily set the fan speed:
+
+  alias fan='~/dev/i8kutils/i8kctl fan 0'
+
+Then, I can set the fan speed like this:
+
+  fan 0   # To silence
+  fan 1   # To set to low
+  fan 2   # To set to high
+
+I don't believe this to be a problem on any other Inspiron laptops besides
+the 7200 SE (maybe the normal edition too, I'm not sure), so this really is
+only for those special cases.
+
 OVERVIEW
 ========
 

@@ -266,6 +266,10 @@ static int i8k_get_fan_speed(int fan)
 {
 	struct smm_regs regs = { .eax = I8K_SMM_GET_SPEED, };
 
+	if(fan == I8K_FAN_RIGHT) {
+		return -1; // does not work on Inspiron 7200 SE
+	}
+
 	regs.ebx = fan & 0xff;
 	return i8k_smm(&regs) ? : (regs.eax & 0xffff) * fan_mult;
 }
